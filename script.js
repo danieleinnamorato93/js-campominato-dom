@@ -3,11 +3,13 @@ const btn = document.getElementById('btn');
 const grid = document.getElementById('grid');
 const scoreCount = document.getElementById('score');
 
+
 // Impostazioni griglia
 const rows = 10;
 const cols = 10;
 const totalCells = rows * cols;
 let score = 0;
+const totalBombs = 16;
 
 // Creo una funzione per generare una griglia
 function createGrid() {
@@ -36,7 +38,22 @@ function createGrid() {
         // Inserisco la cella nella griglia
         grid.appendChild(cell);
     }
+    const maxScore= totalCells - totalBombs;
 }
+
+//funzione per generare le bombe
+const generateBombs = (totalCells , totalBombs) => {
+    const bombs = [];
+    while(bombs.length < totalBombs) {
+        const randomNumber = Math.floor(Math.random() * totalCells) + 1 ;
+        if (!bombs.includes(randomNumber)) bombs.push(randomNumber);
+    }
+    return bombs ;
+}
+
+//Genero le bombe
+const bombs = generateBombs (totalCells , totalBombs);
+console.log(bombs);
 
 // Aggiungo l'evento al bottone
 btn.addEventListener('click', createGrid);

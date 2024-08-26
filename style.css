@@ -45,4 +45,6 @@ header {
 
 .cell.clicked {
 background-color: lightskyblue;
+cursor: not-allowed;
+color: white;
 }
