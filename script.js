@@ -16,31 +16,39 @@ function createGrid() {
     grid.innerHTML = '';
 
     // Genero le celle con un ciclo
+    // Genero le celle con un ciclo
     for (let i = 1; i <= totalCells; i++) {
         const cell = document.createElement('div');
         cell.classList.add('cell');
         cell.textContent = i;
 
         // Aggiungo l'evento alla cella
-        cell.addEventListener('click', () => {
-            if (!cell.classList.contains('clicked')) { 
-                console.log(`Hai scelto la numero: ${i}`);
-
-                if(cell.classList.contains('clicked')) return;
-                cell.classList.add('clicked');
-                
-                // Aumento lo score
-                score++;
-                scoreCount.innerText = `Score: ${score}`;
-            }
-        });
+        cell.addEventListener('click', () => handleCellClick(i, cell));
 
         // Inserisco la cella nella griglia
         grid.appendChild(cell);
     }
-    const maxScore= totalCells - totalBombs;
 }
 
+function handleCellClick(i, cell) {
+    if (cell.classList.contains('clicked')) return;
+    console.log(`Hai scelto la numero: ${i}`);
+
+    if (bombs.includes(i)) {
+      
+        cell.classList.add('clicked', 'bomb');
+        cell.style.backgroundColor = 'red';
+        alert(`Boom! Hai calpestato una bomba. Punteggio: ${score}`);
+    } else {
+       
+        cell.classList.add('clicked');
+        cell.style.backgroundColor = 'lightskyblue';
+        score++;
+        scoreCount.innerText = `Score: ${score}`;
+
+    const maxScore= totalCells - totalBombs;
+}
+}
 //funzione per generare le bombe
 const generateBombs = (totalCells , totalBombs) => {
     const bombs = [];
